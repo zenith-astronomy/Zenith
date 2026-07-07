@@ -16,6 +16,6 @@ Planned features include:
 
 ## License
 
-Zenith is free (as in freedom) software licensed under the GNU General Public License version 3 or later.
+Zenith is [free (as in freedom)](https://en.wikipedia.org/wiki/Free_software) software licensed under the GNU General Public License version 3 or later.
 
 See the `LICENSE` file for the full license text.

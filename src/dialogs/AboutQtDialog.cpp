@@ -25,7 +25,7 @@
 AboutQtDialog::AboutQtDialog(QWidget* parent) : QDialog(parent)
 {
     setWindowTitle("About Qt");
-    resize(500, 400);
+    resize(600, 500);
 
     auto* root_layout = new QVBoxLayout(this);
     auto* content_layout = new QHBoxLayout();
