@@ -16,17 +16,32 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include "fits.h"
 
-#include <QMainWindow>
-#include <QWidget>
-
-class MainWindow : public QMainWindow
+namespace Fits
 {
-public:
-    explicit MainWindow(QWidget* parent = nullptr);
+    Info GetInfo(fitsfile* fptr)
+    {
+        Info info = {};
 
-    void toggleFullScreen();
+        int status = 0;
 
-    void openImages();
-};
+        fits_read_key(fptr, TINT,  "BITPIX", &info.bitpix, nullptr, &status);
+        
+        fits_read_key(fptr, TINT, "NAXIS1", &info.naxis1, nullptr, &status);
+        fits_read_key(fptr, TINT, "NAXIS2", &info.naxis2, nullptr, &status);
+        fits_read_key(fptr, TINT, "NAXIS3", &info.naxis3, nullptr, &status);
+
+        return info;
+    }
+
+    Image Load(const Path& path)
+    {
+        FitsFile file(path);
+        fitsfile* fptr = file.get();
+
+        Image image;
+
+        return image;
+    }
+}

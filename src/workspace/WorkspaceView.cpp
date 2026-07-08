@@ -16,17 +16,10 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include "WorkspaceView.h"
 
-#include <QMainWindow>
-#include <QWidget>
-
-class MainWindow : public QMainWindow
+WorkspaceView::WorkspaceView(QWidget* parent) : QMdiArea(parent)
 {
-public:
-    explicit MainWindow(QWidget* parent = nullptr);
-
-    void toggleFullScreen();
-
-    void openImages();
-};
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+}

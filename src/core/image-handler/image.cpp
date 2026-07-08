@@ -16,17 +16,19 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include "image.h"
+#include <stdexcept>
 
-#include <QMainWindow>
-#include <QWidget>
+#include "formats/fits.h"
 
-class MainWindow : public QMainWindow
+Image Image::Load(const Path& path)
 {
-public:
-    explicit MainWindow(QWidget* parent = nullptr);
+    std::string ext = path.extension().string();
 
-    void toggleFullScreen();
+    if (ext == ".fits" || ext == ".fit" || ext == ".fts")
+    {
+        return Fits::Load(path);
+    }
 
-    void openImages();
-};
+    throw std::runtime_error("Unsupported image format");
+}

@@ -16,17 +16,38 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include "integration.h"
 
-#include <QMainWindow>
-#include <QWidget>
+#include <stdexcept>
 
-class MainWindow : public QMainWindow
+#include "algorithms/average.h"
+
+Image Integrate(const std::vector<Image>& frames, Algorithm alg, Rejection rej)
 {
-public:
-    explicit MainWindow(QWidget* parent = nullptr);
+    Image result;
 
-    void toggleFullScreen();
+    // Assign the image information
+    result.width = frames[0].width;
+    result.height = frames[0].height;
+    result.channels = frames[0].channels;
 
-    void openImages();
-};
+    // Resize and clear the pixels vector
+    result.pixels.resize(result.width * result.height * result.channels);
+    result.pixels.clear();
+
+    switch (alg)
+    {
+        case AVERAGE:
+        {
+            Average::Integrate(frames, result, rej);
+            break;
+        }
+
+        default:
+        {
+            throw std::runtime_error("Unsupported integration algorithm");
+        }
+    }
+
+    return result;
+}

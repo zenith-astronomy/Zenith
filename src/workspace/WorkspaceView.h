@@ -18,15 +18,11 @@
 
 #pragma once
 
-#include <QMainWindow>
+#include <QMdiArea>
 #include <QWidget>
 
-class MainWindow : public QMainWindow
+class WorkspaceView : public QMdiArea
 {
 public:
-    explicit MainWindow(QWidget* parent = nullptr);
-
-    void toggleFullScreen();
-
-    void openImages();
+    explicit WorkspaceView(QWidget* parent = nullptr);
 };

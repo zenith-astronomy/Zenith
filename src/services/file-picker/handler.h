@@ -16,17 +16,22 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+// This abstraction layer is in place to later allow the use of a custom file picker
+
 #pragma once
 
-#include <QMainWindow>
 #include <QWidget>
 
-class MainWindow : public QMainWindow
+#include "../../core/types.h"
+
+enum Type
+{
+    NATIVE,
+    CUSTOM
+};
+
+class FilePicker
 {
 public:
-    explicit MainWindow(QWidget* parent = nullptr);
-
-    void toggleFullScreen();
-
-    void openImages();
+    std::vector<Path> OpenFilePicker(QWidget* parent = nullptr, Type type = NATIVE, bool allowMultiple = true, QString title = "File picker");
 };

@@ -12,14 +12,9 @@ qt_standard_project_setup()
 
 qt_add_executable(Zenith
     src/main.cpp
-    src/MainWindow.h
-    src/MainWindow.cpp
-
-    src/dialogs/AboutZenithDialog.h
-    src/dialogs/AboutZenithDialog.cpp
-    src/dialogs/AboutQtDialog.h
-    src/dialogs/AboutQtDialog.cpp
 )
+
+add_subdirectory(src)
 
 target_link_libraries(Zenith PRIVATE
 	Qt6::Widgets

@@ -18,15 +18,10 @@
 
 #pragma once
 
-#include <QMainWindow>
-#include <QWidget>
+#include "../integration.h"
+#include "../../../image-handler/image.h"
 
-class MainWindow : public QMainWindow
+namespace Average
 {
-public:
-    explicit MainWindow(QWidget* parent = nullptr);
-
-    void toggleFullScreen();
-
-    void openImages();
-};
+    void Integrate(const std::vector<Image>& frames, Image& result, Rejection rej);
+}

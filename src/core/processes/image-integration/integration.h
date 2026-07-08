@@ -18,15 +18,16 @@
 
 #pragma once
 
-#include <QMainWindow>
-#include <QWidget>
+#include "../../image-handler/image.h"
 
-class MainWindow : public QMainWindow
+enum Algorithm
 {
-public:
-    explicit MainWindow(QWidget* parent = nullptr);
-
-    void toggleFullScreen();
-
-    void openImages();
+    AVERAGE
 };
+
+enum Rejection
+{
+    NONE
+};
+
+Image Integrate(const std::vector<Image>& frames, Algorithm alg, Rejection rej);

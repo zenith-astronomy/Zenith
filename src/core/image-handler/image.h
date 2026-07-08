@@ -18,15 +18,20 @@
 
 #pragma once
 
-#include <QMainWindow>
-#include <QWidget>
+#include <vector>
 
-class MainWindow : public QMainWindow
+#include "../types.h"
+
+using Pixels = std::vector<float>;
+
+class Image
 {
 public:
-    explicit MainWindow(QWidget* parent = nullptr);
+    std::size_t width;
+    std::size_t height;
+    std::size_t channels;
 
-    void toggleFullScreen();
+    Pixels pixels;
 
-    void openImages();
+    static Image Load(const Path& path);
 };

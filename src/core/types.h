@@ -18,15 +18,6 @@
 
 #pragma once
 
-#include <QMainWindow>
-#include <QWidget>
+#include <filesystem>
 
-class MainWindow : public QMainWindow
-{
-public:
-    explicit MainWindow(QWidget* parent = nullptr);
-
-    void toggleFullScreen();
-
-    void openImages();
-};
+using Path = std::filesystem::path;

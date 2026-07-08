@@ -16,17 +16,27 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include "average.h"
 
-#include <QMainWindow>
-#include <QWidget>
-
-class MainWindow : public QMainWindow
+namespace Average
 {
-public:
-    explicit MainWindow(QWidget* parent = nullptr);
+    void Integrate(const std::vector<Image>& frames, Image& result, Rejection rej)
+    {
+        int framesCount = frames.size();
+        int pixelsCount = result.pixels.size();
 
-    void toggleFullScreen();
+        float sum;
 
-    void openImages();
-};
+        for (std::size_t i = 0; i < pixelsCount; ++i)
+        {
+            sum = 0.0f;
+
+            for (const Image& frame : frames)
+            {
+                sum += frame.pixels[i];
+            }
+
+            result.pixels[i] = sum / static_cast<float>(framesCount);
+        }
+    }
+}

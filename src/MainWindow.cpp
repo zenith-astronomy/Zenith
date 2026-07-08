@@ -21,6 +21,12 @@
 #include <QApplication>
 #include <QMenuBar>
 
+#include "workspace/WorkspaceView.h"
+
+#include "core/types.h"
+
+#include "services/file-picker/handler.h"
+
 #include "dialogs/AboutZenithDialog.h"
 #include "dialogs/AboutQtDialog.h"
 
@@ -33,6 +39,9 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
     // File menu
     auto* file_menu = menuBar()->addMenu("File");
 
+    auto* open_action = file_menu->addAction("Open");
+    connect(open_action, &QAction::triggered, this, &MainWindow::openImages);
+    file_menu->addSeparator();
     auto* quit_action = file_menu->addAction("Quit");
     connect(quit_action, &QAction::triggered, this, &MainWindow::close);
 
@@ -63,6 +72,9 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent)
         AboutQtDialog dialog(this);
         dialog.exec();
     });
+
+    auto* workspace_view = new WorkspaceView(this);
+    setCentralWidget(workspace_view);
 }
 
 void MainWindow::toggleFullScreen()
@@ -75,4 +87,13 @@ void MainWindow::toggleFullScreen()
     {
         showFullScreen();
     }
+}
+
+void MainWindow::openImages()
+{
+    FilePicker picker;
+
+    std::vector<Path> filePaths = picker.OpenFilePicker(this, NATIVE, true, "Open images");
+
+
 }
