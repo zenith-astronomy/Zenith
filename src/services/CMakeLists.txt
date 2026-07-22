@@ -1,3 +1,11 @@
-target_sources(Zenith PRIVATE)
+target_sources(Zenith PRIVATE
+    Console/ConsoleManager.h
+    Console/ConsoleManager.cpp
+    Console/ConsoleModel.h
+    Console/ConsoleModel.cpp
+    Console/ConsoleView.h
+    Console/ConsoleView.cpp
 
-add_subdirectory(file-picker)
+    FilePicker/FilePickerManager.h
+    FilePicker/FilePickerManager.cpp
+)

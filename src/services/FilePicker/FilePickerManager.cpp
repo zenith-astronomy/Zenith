@@ -16,25 +16,21 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include "FilePickerManager.h"
 
-#include <QMdiArea>
-#include <QWidget>
+#include <QFileDialog>
 
-#include "../core/images/image.h"
-
-class WorkspaceView : public QMdiArea
+std::vector<Path> FilePickerManager::OpenFilePicker()
 {
-    Q_OBJECT
+    QStringList Qpaths;
+    std::vector<Path> paths;
 
-public:
-    explicit WorkspaceView(QWidget* parent = nullptr);
+    Qpaths = QFileDialog::getOpenFileNames(nullptr, "File picker", QString(), "All files (*)");
 
-    void DisplayImage(const Image& image);
+    for (const QString& Qpath : std::as_const(Qpaths))
+    {
+        paths.emplace_back(static_cast<Path>(Qpath.toStdString()));
+    }
 
-    QString GetName() const;
-    void SetName(const QString& name);
-
-private:
-    QString m_name;
-};
+    return paths;
+}

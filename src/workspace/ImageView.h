@@ -1,6 +1,6 @@
 /*
-    Zenith, astrophotography image processing software.
-    Copyright (C) 2026 Stefano De Angelis
+    Zenith, astrophotography image processing software
+    Copyright (C) 2026 Stefano De Angelis and contributors (see AUTHORS file)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,27 +16,22 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include "average.h"
+#pragma once
 
-namespace Average
+#include <QWidget>
+
+#include "../core/images/image.h"
+
+class ImageView : public QWidget
 {
-    void Integrate(const std::vector<Image>& frames, Image& result, Rejection rej)
-    {
-        int framesCount = frames.size();
-        int pixelsCount = result.pixels.size();
+public:
+    explicit ImageView(QWidget* parent = nullptr);
 
-        float sum;
+    void SetImage(const Image& image);
 
-        for (std::size_t i = 0; i < pixelsCount; ++i)
-        {
-            sum = 0.0f;
+protected:
+    void paintEvent(QPaintEvent*) override;
 
-            for (const Image& frame : frames)
-            {
-                sum += frame.pixels[i];
-            }
-
-            result.pixels[i] = sum / static_cast<float>(framesCount);
-        }
-    }
-}
+private:
+    QImage m_image;
+};

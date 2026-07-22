@@ -14,9 +14,17 @@ qt_add_executable(Zenith
     src/main.cpp
 )
 
+qt_add_resources(Zenith
+    PREFIX
+    FILES
+        resources/icons/plus.svg
+        resources/icons/minus.svg
+        resources/icons/open.svg
+)
+
 add_subdirectory(src)
 
 target_link_libraries(Zenith PRIVATE
-	Qt6::Widgets
-	${CFITSIO_LIBRARY}
+    Qt6::Widgets
+    ${CFITSIO_LIBRARY}
 )

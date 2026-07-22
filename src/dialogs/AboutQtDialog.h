@@ -1,6 +1,6 @@
 /*
-    Zenith, astrophotography image processing software.
-    Copyright (C) 2026 Stefano De Angelis
+    Zenith, astrophotography image processing software
+    Copyright (C) 2026 Stefano De Angelis and contributors (see AUTHORS file)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

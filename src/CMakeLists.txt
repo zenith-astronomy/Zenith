@@ -4,6 +4,7 @@ target_sources(Zenith PRIVATE
 )
 
 add_subdirectory(core)
-add_subdirectory(workspace)
-add_subdirectory(services)
 add_subdirectory(dialogs)
+add_subdirectory(preferences)
+add_subdirectory(services)
+add_subdirectory(workspace)

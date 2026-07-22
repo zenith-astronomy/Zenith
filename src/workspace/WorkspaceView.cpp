@@ -1,6 +1,6 @@
 /*
-    Zenith, astrophotography image processing software.
-    Copyright (C) 2026 Stefano De Angelis
+    Zenith, astrophotography image processing software
+    Copyright (C) 2026 Stefano De Angelis and contributors (see AUTHORS file)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,8 +18,33 @@
 
 #include "WorkspaceView.h"
 
+#include <QMdiSubWindow>
+
+#include "ImageView.h"
+
 WorkspaceView::WorkspaceView(QWidget* parent) : QMdiArea(parent)
 {
     setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+}
+
+void WorkspaceView::DisplayImage(const Image& image)
+{
+    auto* imageView = new ImageView;
+    imageView->SetImage(image);
+
+    auto* subWindow = addSubWindow(imageView);
+
+    subWindow->setAttribute(Qt::WA_DeleteOnClose);
+    subWindow->show();
+}
+
+QString WorkspaceView::GetName() const
+{
+    return m_name;
+}
+
+void WorkspaceView::SetName(const QString& name)
+{
+    m_name = name;
 }

@@ -1,6 +1,6 @@
 /*
-    Zenith, astrophotography image processing software.
-    Copyright (C) 2026 Stefano De Angelis
+    Zenith, astrophotography image processing software
+    Copyright (C) 2026 Stefano De Angelis and contributors (see AUTHORS file)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -19,8 +19,6 @@
 #pragma once
 
 #include <fitsio.h>
-#include <longnam.h>
-#include <stdexcept>
 
 #include "../image.h"
 
@@ -29,13 +27,11 @@ namespace Fits
     class FitsFile
     {
     public:
-        FitsFile(const Path& path, int mode = READWRITE)
+        FitsFile(const Path& path)
         {
             int status = 0;
 
-            std::string path_str = path.string();
-
-            if (fits_open_file(&fptr, path_str.c_str(), mode, &status))
+            if (fits_open_file(&fptr, path.string().c_str(), READONLY, &status))
             {
                 throw std::runtime_error("Failed to open FITS file");
             }
@@ -50,10 +46,7 @@ namespace Fits
             }
         }
 
-        FitsFile(const FitsFile&) = delete;
-        FitsFile& operator=(const FitsFile&) = delete;
-
-        fitsfile* get()
+        fitsfile* GetFptr()
         {
             return fptr;
         }
@@ -64,12 +57,13 @@ namespace Fits
 
     struct Info
     {
-        int bitpix = -32;
-
-        std::size_t naxis1 = 0;
-        std::size_t naxis2 = 0;
+        std::size_t naxis1 = 1;
+        std::size_t naxis2 = 1;
         std::size_t naxis3 = 1;
     };
 
+    Info GetInfo(fitsfile* fptr);
+
     Image Load(const Path& path);
 }
+

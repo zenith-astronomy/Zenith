@@ -1,7 +1,11 @@
 target_sources(Zenith PRIVATE
+    WorkspaceManager.h
+    WorkspaceManager.cpp
     WorkspaceView.h
     WorkspaceView.cpp
 
-    ImageLoader.h
-    ImageLoader.cpp
+    ImageRenderer.h
+    ImageRenderer.cpp
+    ImageView.h
+    ImageView.cpp
 )

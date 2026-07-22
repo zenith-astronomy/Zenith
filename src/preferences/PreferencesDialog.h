@@ -18,23 +18,24 @@
 
 #pragma once
 
-#include <QMdiArea>
-#include <QWidget>
+#include <QDialog>
 
-#include "../core/images/image.h"
+#include "AppPreferences.h"
 
-class WorkspaceView : public QMdiArea
+#include "categories/GeneralPreferences.h"
+#include "categories/AppearancePreferences.h"
+
+class PreferencesDialog : public QDialog
 {
-    Q_OBJECT
-
 public:
-    explicit WorkspaceView(QWidget* parent = nullptr);
+    explicit PreferencesDialog(PreferencesData& preferencesData, QWidget* parent = nullptr);
 
-    void DisplayImage(const Image& image);
-
-    QString GetName() const;
-    void SetName(const QString& name);
+    void UpdatePreferences();
+    void ApplyPreferences();
 
 private:
-    QString m_name;
+    PreferencesData& m_PreferencesData;
+
+    GeneralPreferences* m_GeneralPreferences = nullptr;
+    AppearancePreferences* m_AppearancePreferences = nullptr;
 };

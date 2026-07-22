@@ -1,6 +1,6 @@
 /*
-    Zenith, astrophotography image processing software.
-    Copyright (C) 2026 Stefano De Angelis
+    Zenith, astrophotography image processing software
+    Copyright (C) 2026 Stefano De Angelis and contributors (see AUTHORS file)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,10 +16,20 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#pragma once
-
 #include <QMainWindow>
 #include <QWidget>
+#include <QAction>
+#include <QComboBox>
+#include <QCloseEvent>
+#include <QDockWidget>
+
+#include "workspace/WorkspaceManager.h"
+
+#include "services/Console/ConsoleManager.h"
+#include "services/FilePicker/FilePickerManager.h"
+
+#include "preferences/AppPreferences.h"
+#include "preferences/PreferencesDialog.h"
 
 class MainWindow : public QMainWindow
 {
@@ -28,5 +38,31 @@ public:
 
     void toggleFullScreen();
 
-    void openImages();
+    void openFiles();
+
+    void ExecuteCommand(const std::string& input);
+
+protected:
+    void closeEvent(QCloseEvent* event) override;
+
+private:
+    WorkspaceManager* m_workspace_manager = nullptr;
+    ConsoleManager* m_console_manager = nullptr;
+    FilePickerManager* m_filepicker_manager = nullptr;
+
+    QDockWidget* m_console_dock = nullptr;
+
+    QAction* m_fullscreen_action = nullptr;
+
+    QAction* m_createworkspace_action = nullptr;
+    QAction* m_deleteworkspace_action = nullptr;
+
+    QComboBox* m_workspace_combobox = nullptr;
+
+    Qt::WindowStates m_previousState = Qt::WindowNoState;
+
+    AppPreferences m_preferences;
+    PreferencesData m_preferencesData;
+
+    PreferencesDialog* m_PreferencesDialog = nullptr;
 };

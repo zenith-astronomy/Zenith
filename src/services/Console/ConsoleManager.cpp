@@ -16,25 +16,31 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include "ConsoleManager.h"
 
-#include <QMdiArea>
-#include <QWidget>
+#include <QApplication>
 
-#include "../core/images/image.h"
-
-class WorkspaceView : public QMdiArea
+ConsoleManager::ConsoleManager(QWidget* parent) : QObject(parent)
 {
-    Q_OBJECT
+    consoleModel = new ConsoleModel;
+    consoleView = new ConsoleView;
+    consoleView->listView->setModel(consoleModel);
+}
 
-public:
-    explicit WorkspaceView(QWidget* parent = nullptr);
+void ConsoleManager::AddEntry(const std::string& message, const EntryType type)
+{
+    ConsoleEntry entry;
 
-    void DisplayImage(const Image& image);
+    entry.type = type;
+    entry.timestamp = QDateTime::currentDateTime();
+    entry.message = QString::fromStdString(message);
 
-    QString GetName() const;
-    void SetName(const QString& name);
+    consoleModel->AddEntry(entry);
 
-private:
-    QString m_name;
-};
+    consoleView->listView->scrollToBottom();
+
+    if (entry.type == ERROR)
+    {
+        emit ShowConsole();
+    }
+}

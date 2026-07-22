@@ -18,23 +18,36 @@
 
 #pragma once
 
-#include <QMdiArea>
-#include <QWidget>
+#include <QStackedWidget>
 
+#include "WorkspaceView.h"
+
+#include "../services/Console/ConsoleManager.h"
+
+#include "../core/types.h"
 #include "../core/images/image.h"
 
-class WorkspaceView : public QMdiArea
+class WorkspaceManager : public QStackedWidget
 {
     Q_OBJECT
 
 public:
-    explicit WorkspaceView(QWidget* parent = nullptr);
+    explicit WorkspaceManager(ConsoleManager*& console_manager, QWidget* parent = nullptr);
+
+    void OpenFile(const Path& path);
+    void OpenFiles(const std::vector<Path>& paths);
 
     void DisplayImage(const Image& image);
 
-    QString GetName() const;
-    void SetName(const QString& name);
+    void CreateWorkspace();
+    void DeleteWorkspace(int index);
+
+    WorkspaceView* GetWorkspace(int index) const;
+
+signals:
+    void WorkspaceCreated();
+    void WorkspaceDeleted(int index);
 
 private:
-    QString m_name;
+    ConsoleManager* m_console_manager = nullptr;
 };

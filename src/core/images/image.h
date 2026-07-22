@@ -18,23 +18,16 @@
 
 #pragma once
 
-#include <QMdiArea>
-#include <QWidget>
+#include <vector>
 
-#include "../core/images/image.h"
+#include "../types.h"
 
-class WorkspaceView : public QMdiArea
+class Image
 {
-    Q_OBJECT
-
 public:
-    explicit WorkspaceView(QWidget* parent = nullptr);
+    std::size_t width;
+    std::size_t height;
+    std::size_t channels;
 
-    void DisplayImage(const Image& image);
-
-    QString GetName() const;
-    void SetName(const QString& name);
-
-private:
-    QString m_name;
+    std::vector<float> pixels;
 };

@@ -1,6 +1,6 @@
 /*
-    Zenith, astrophotography image processing software.
-    Copyright (C) 2026 Stefano De Angelis
+    Zenith, astrophotography image processing software
+    Copyright (C) 2026 Stefano De Angelis and contributors (see AUTHORS file)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -20,14 +20,20 @@
 
 #include "MainWindow.h"
 
-int main(int argc, char *argv[])
+int main(int argc, char** argv)
 {
     // Create the application
     QApplication app(argc, argv);
 
+    QCoreApplication::setOrganizationName("Zenith Astronomy");
+    QCoreApplication::setApplicationName("Zenith");
+
     // Create the main window
     MainWindow window;
 
-    // Starts the application loop
+    // Show the window
+    window.show();
+
+    // Start the application loop
     return app.exec();
 }

@@ -1,6 +1,6 @@
 /*
-    Zenith, astrophotography image processing software.
-    Copyright (C) 2026 Stefano De Angelis
+    Zenith, astrophotography image processing software
+    Copyright (C) 2026 Stefano De Angelis and contributors (see AUTHORS file)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -18,20 +18,22 @@
 
 #pragma once
 
-#include <vector>
+#include <QSettings>
 
-#include "../types.h"
+struct PreferencesData
+{
+    Qt::WindowStates startup_WindowState = Qt::WindowMaximized;
+    bool startup_IsConsoleVisible = true;
+};
 
-using Pixels = std::vector<float>;
-
-class Image
+class AppPreferences
 {
 public:
-    std::size_t width;
-    std::size_t height;
-    std::size_t channels;
+    AppPreferences();
 
-    Pixels pixels;
+    void Load(PreferencesData& data) const;
+    void Save(PreferencesData& data);
 
-    static Image Load(const Path& path);
+private:
+    QSettings m_preferences;
 };

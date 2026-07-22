@@ -16,25 +16,4 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#pragma once
-
-#include <QMdiArea>
-#include <QWidget>
-
-#include "../core/images/image.h"
-
-class WorkspaceView : public QMdiArea
-{
-    Q_OBJECT
-
-public:
-    explicit WorkspaceView(QWidget* parent = nullptr);
-
-    void DisplayImage(const Image& image);
-
-    QString GetName() const;
-    void SetName(const QString& name);
-
-private:
-    QString m_name;
-};
+#include "ImageRenderer.h"

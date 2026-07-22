@@ -18,23 +18,36 @@
 
 #pragma once
 
-#include <QMdiArea>
-#include <QWidget>
+#include <QAbstractListModel>
+#include <QDateTime>
 
-#include "../core/images/image.h"
-
-class WorkspaceView : public QMdiArea
+enum EntryType
 {
-    Q_OBJECT
+    DEFAULT,
+    TIP,
+    SUCCESS,
+    WARNING,
+    ERROR
+};
 
+struct ConsoleEntry
+{
+    EntryType type;
+    QDateTime timestamp;
+    QString message;
+};
+
+class ConsoleModel : public QAbstractListModel
+{
 public:
-    explicit WorkspaceView(QWidget* parent = nullptr);
+    explicit ConsoleModel(QObject* parent = nullptr);
 
-    void DisplayImage(const Image& image);
+    void AddEntry(const ConsoleEntry& entry);
+    void Clear();
 
-    QString GetName() const;
-    void SetName(const QString& name);
+    int rowCount(const QModelIndex& parent = QModelIndex()) const override;
+    QVariant data(const QModelIndex& index, int role) const override;
 
 private:
-    QString m_name;
+    std::vector<ConsoleEntry> m_entries;
 };

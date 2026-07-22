@@ -1,6 +1,6 @@
 /*
-    Zenith, astrophotography image processing software.
-    Copyright (C) 2026 Stefano De Angelis
+    Zenith, astrophotography image processing software
+    Copyright (C) 2026 Stefano De Angelis and contributors (see AUTHORS file)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,22 +16,26 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-// This abstraction layer is in place to later allow the use of a custom file picker
-
 #pragma once
 
 #include <QWidget>
+#include <QListView>
+#include <QLineEdit>
+#include <QPushButton>
 
-#include "../../core/types.h"
-
-enum Type
+class ConsoleView : public QWidget
 {
-    NATIVE,
-    CUSTOM
-};
+    Q_OBJECT
 
-class FilePicker
-{
 public:
-    std::vector<Path> OpenFilePicker(QWidget* parent = nullptr, Type type = NATIVE, bool allowMultiple = true, QString title = "File picker");
+    explicit ConsoleView(QWidget* parent = nullptr);
+
+    QListView* listView = nullptr;
+
+signals:
+    void CommandEntered(const std::string& input);
+
+private:
+    QLineEdit* m_lineEdit = nullptr;
+    QPushButton* m_enter_button = nullptr;
 };

@@ -1,6 +1,6 @@
 /*
-    Zenith, astrophotography image processing software.
-    Copyright (C) 2026 Stefano De Angelis
+    Zenith, astrophotography image processing software
+    Copyright (C) 2026 Stefano De Angelis and contributors (see AUTHORS file)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,19 +16,14 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include "image.h"
-#include <stdexcept>
+#pragma once
 
-#include "formats/fits.h"
+#include <vector>
 
-Image Image::Load(const Path& path)
+#include "../../core/types.h"
+
+class FilePickerManager
 {
-    std::string ext = path.extension().string();
-
-    if (ext == ".fits" || ext == ".fit" || ext == ".fts")
-    {
-        return Fits::Load(path);
-    }
-
-    throw std::runtime_error("Unsupported image format");
-}
+public:
+    std::vector<Path> OpenFilePicker();
+};

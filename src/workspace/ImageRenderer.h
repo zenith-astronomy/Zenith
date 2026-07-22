@@ -18,23 +18,17 @@
 
 #pragma once
 
-#include <QMdiArea>
-#include <QWidget>
-
-#include "../core/images/image.h"
-
-class WorkspaceView : public QMdiArea
+enum DisplayTransform
 {
-    Q_OBJECT
 
-public:
-    explicit WorkspaceView(QWidget* parent = nullptr);
+};
 
-    void DisplayImage(const Image& image);
+enum LinearTransform
+{
 
-    QString GetName() const;
-    void SetName(const QString& name);
+};
 
-private:
-    QString m_name;
+class ImageRenderer
+{
+
 };
